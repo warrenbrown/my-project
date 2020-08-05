@@ -1,14 +1,16 @@
 import React from 'react'
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 const PostDetail = ({ post }) => {
+  const converter = new QuillDeltaToHtmlConverter(post.body.ops, {});
+  const contentHTML = converter.convert();
   return (
    <article className="post container">
      <h1>{post.title}</h1>
-     <div>
-       { post.body}
-     </div>
+     <div className="content" dangerouslySetInnerHTML={{__html: contentHTML}}/>
    </article>
-  )
-}
+
+  );
+};
 
 export default PostDetail
